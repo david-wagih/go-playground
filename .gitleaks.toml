@@ -1,0 +1,25 @@
+# Gitleaks configuration file
+
+# Title for the configuration file
+title = "Gitleaks Configuration"
+
+# Defines allowed patterns that would otherwise be caught by generic rules
+[[allowlist]]
+description = "Allowlist for README and documentation files"
+paths = [
+  '''README\.md$''',
+  '''.*\.md$''',
+  '''docs/.*$''',
+]
+
+# Allowlist for specific regexes that might be false positives
+[[allowlist]]
+description = "Allowlist for common examples in documentation"
+regexes = [
+  '''sideiq-secret''',
+  '''example''',
+  '''placeholder''',
+  '''EXAMPLE''',
+  '''YOUR_[A-Z_]+''',
+  '''fake''',
+] 
