@@ -8,6 +8,7 @@ The workflow consists of two jobs:
 
 1. **Secret Scanning (gitleaks-scan)**:
    - Uses [Gitleaks](https://github.com/gitleaks/gitleaks) to detect potential secrets in the code
+   - **Important**: Only scans the current state of the PR branch, not the commit history
    - If secrets are found:
      - Posts a comment on the PR with details about the leaked secrets
      - Uploads a detailed report as an artifact
@@ -29,6 +30,12 @@ The repository includes a `test-secrets.txt` file with fake credentials to demon
 2. The workflow automatically runs and scans for secrets
 3. If secrets are found, the PR will be flagged and cannot be merged until the secrets are removed
 4. If no secrets are found, additional checks will run
+
+## Configuration Details
+
+- The workflow is configured to only scan the current state of files in the PR branch
+- It uses `--no-git=true` to prevent scanning git history
+- It uses `fetch-depth: 1` to only fetch the latest commit
 
 ## Important Note
 
