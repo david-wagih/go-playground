@@ -1,48 +1,35 @@
-# Go Calculator
+# GitHub Actions Secret Detection Workflow
 
-A simple command-line calculator application written in Go.
+This repository demonstrates a GitHub Actions workflow that scans pull requests for leaked secrets and credentials.
 
-## Features
+## How It Works
 
-- Basic arithmetic operations: addition, subtraction, multiplication, division
-- Advanced mathematical functions: power, square root, logarithm, factorial
-- Trigonometric functions: sine, cosine, tangent
-- Angle conversion: degrees to radians and radians to degrees
+The workflow consists of two jobs:
+
+1. **Secret Scanning (gitleaks-scan)**:
+   - Uses [Gitleaks](https://github.com/gitleaks/gitleaks) to detect potential secrets in the code
+   - If secrets are found:
+     - Posts a comment on the PR with details about the leaked secrets
+     - Uploads a detailed report as an artifact
+     - Fails the workflow to prevent merging
+   - If no secrets are found, the workflow proceeds to the second job
+
+2. **Additional Checks (second-job)**:
+   - Only runs if no secrets are detected in the first job
+   - Performs additional security checks (placeholder for your custom checks)
+   - Completes the workflow successfully
+
+## Testing the Workflow
+
+The repository includes a `test-secrets.txt` file with fake credentials to demonstrate how the secret detection works. In a real-world scenario, these would trigger the detection mechanism and fail the workflow.
 
 ## Usage
 
-1. Build the application:
-   ```
-   go build
-   ```
+1. Create a pull request with changes
+2. The workflow automatically runs and scans for secrets
+3. If secrets are found, the PR will be flagged and cannot be merged until the secrets are removed
+4. If no secrets are found, additional checks will run
 
-2. Run the application:
-   ```
-   ./go-playground
-   ```
+## Important Note
 
-3. Enter commands in the format:
-   ```
-   operation [arguments]
-   ```
-
-   Examples:
-   - `add 5 3` (Result: 8)
-   - `subtract 10 4` (Result: 6)
-   - `multiply 2.5 3` (Result: 7.5)
-   - `divide 10 2` (Result: 5)
-   - `power 2 3` (Result: 8)
-   - `sqrt 16` (Result: 4)
-   - `sin 1.5708` (Result: ~1, which is sin(π/2))
-   - `cos 0` (Result: 1)
-   - `tan 0.7854` (Result: ~1, which is tan(π/4))
-   - `log 100 10` (Result: 2, which is log₁₀(100))
-   - `factorial 5` (Result: 120)
-
-4. Type `exit` to quit the application.
-
-## Project Structure
-
-- `main.go`: Contains the main application logic and user interface
-- `calculator/calculator.go`: Implements basic calculator operations
-- `calculator/advanced.go`: Implements advanced mathematical functions
+The fake credentials in `test-secrets.txt` are for demonstration purposes only and should not be used in any real application.
