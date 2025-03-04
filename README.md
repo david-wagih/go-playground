@@ -36,6 +36,10 @@ The repository includes a `test-secrets.txt` file with fake credentials to demon
 - The workflow is configured to only scan the current state of files in the PR branch
 - It uses `--no-git=true` to prevent scanning git history
 - It uses `fetch-depth: 1` to only fetch the latest commit
+- A custom `.gitleaks.toml` configuration file is used to:
+  - Ignore documentation files like README.md where examples might trigger false positives
+  - Allowlist specific patterns that are commonly used in examples but might look like secrets
+  - Prevent false positives while still catching real secrets
 
 ## Important Note
 
